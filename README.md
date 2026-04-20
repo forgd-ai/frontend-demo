@@ -1,25 +1,18 @@
+> [!NOTE]
+> This project has been officially archived and will no longer receive updates. See the [Templates](https://vercel.com/templates/next.js) directory for Next.js starters.
+> 
+> I started this project when the Next.js App Router was in public preview. Because the framework has since stabilized and undergone significant architectural changes, the code in this repository:
+> - Does not reflect current best practices.
+> - May contain deprecated APIs or patterns.
+> - Is not recommended for use in production environments.
+
 # Taxonomy
 
 An open source application built using the new router, server components and everything new in Next.js 13.
 
-> **Warning**
-> This app is a work in progress. I'm building this in public. You can follow the progress on Twitter [@shadcn](https://twitter.com/shadcn).
-> See the roadmap below.
-
 ## About this project
 
-This project as an experiment to see how a modern app (with features like authentication, subscriptions, API routes, static pages for docs ...etc) would work in Next.js 13 and server components.
-
-**This is not a starter template.**
-
-A few people have asked me to turn this into a starter. I think we could do that once the new features are out of beta.
-
-## Note on Performance
-
-> **Warning**
-> This app is using the unstable releases for Next.js 13 and React 18. The new router and app dir is still in beta and not production-ready.
-> **Expect some performance hits when testing the dashboard**.
-> If you see something broken, you can ping me [@shadcn](https://twitter.com/shadcn).
+This project as an experiment to see how a modern app (with features like authentication, subscriptions, API routes, static pages for docs ...etc) would work in Next.js 13 and server components. 
 
 ## Features
 
