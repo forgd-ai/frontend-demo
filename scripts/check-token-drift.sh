@@ -13,11 +13,14 @@ cd "$(dirname "$0")/.."
 # Files that may legitimately contain literal values. Keep this list short and
 # justified: OG image generation cannot read CSS variables; the tailwind
 # breakpoint indicator is dev-only tooling; the callout warning variant is the
-# documented exception until a warning token exists.
+# documented exception until a warning token exists; code blocks pair with the
+# github-dark syntax theme (contentlayer.config.js), whose surface belongs to
+# that color system in both app themes.
 ALLOWLIST=(
   "app/api/og/route.tsx"
   "components/tailwind-indicator.tsx"
   "components/callout.tsx"
+  "components/mdx-components.tsx"
 )
 
 SCAN_DIRS=(app components)
@@ -77,6 +80,12 @@ scan '(bg|text|border|ring|fill|stroke|from|via|to)-\[(#|rgb|hsl)[^]]*\]' \
 # Raw Tailwind palette classes (text-red-600, bg-slate-50).
 scan '(bg|text|border|ring-offset|ring|fill|stroke|divide|from|via|to)-(red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose|slate|gray|zinc|neutral|stone)-[0-9]{2,3}' \
   "map to a semantic token (errors: destructive; subdued: muted)"
+
+# Colorless palette classes (bg-white, text-black) have no numeric suffix
+# but bypass the tokens just the same. transparent is legal: it is the
+# absence of a color, not a color.
+scan '(bg|text|border|ring-offset|ring|fill|stroke|divide|from|via|to)-(white|black)([^a-zA-Z-]|$)' \
+  "map to a semantic token (surfaces: background/card; text: foreground)"
 
 # Arbitrary numeric radius values (rounded-[6px]). Non-numeric arbitrary
 # values like rounded-[inherit] are not literals and pass.

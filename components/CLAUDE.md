@@ -51,9 +51,14 @@ values for spacing or type.
 - Values that are "close enough" to a token. If a design calls for a value no
   token provides, that is a design system conversation, not a hardcode.
 
-Known exceptions, and the only ones: `app/api/og/route.tsx` (image generation
-cannot read CSS variables) and the MDX callout's `warning` variant (the token
-set has no warning color yet). Do not add new exceptions silently.
+Known exceptions, and the only ones, matching the allowlist in
+`scripts/check-token-drift.sh`: `app/api/og/route.tsx` (image generation
+cannot read CSS variables), `components/tailwind-indicator.tsx` (dev-only
+breakpoint overlay), the MDX callout's `warning` variant (the token set has
+no warning color yet), and the code block surface in
+`components/mdx-components.tsx` (it pairs with the github-dark syntax theme,
+whose colors do not flip with the app theme). Do not add new exceptions
+silently.
 
 Run `scripts/check-token-drift.sh` before calling any UI change done.
 
