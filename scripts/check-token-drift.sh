@@ -22,6 +22,13 @@ ALLOWLIST=(
 
 SCAN_DIRS=(app components)
 
+for dir in "${SCAN_DIRS[@]}"; do
+  if [ ! -d "$dir" ]; then
+    echo "error: scan directory '$dir' not found; run from the repo" >&2
+    exit 2
+  fi
+done
+
 is_allowed() {
   local file="$1"
   for allowed in "${ALLOWLIST[@]}"; do
@@ -50,7 +57,7 @@ scan() {
     match=$(printf '%s' "$content" | grep -oE "$pattern" | head -1)
     printf '%s:%s: %s  -> %s\n' "$file" "$lineno" "$match" "$hint"
     VIOLATIONS=$((VIOLATIONS + 1))
-  done < <(grep -rnE --include="*.tsx" --include="*.ts" "$pattern" "${SCAN_DIRS[@]}" 2>/dev/null || true)
+  done < <(grep -rnE --include="*.tsx" --include="*.ts" "$pattern" "${SCAN_DIRS[@]}" || true)
 }
 
 # Literal hex colors (#fff, #1a1a1a). The trailing guard keeps route anchors
