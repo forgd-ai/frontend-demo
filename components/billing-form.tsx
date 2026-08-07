@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { useRouter } from "next/navigation"
 
 import { UserSubscriptionPlan } from "types"
 import { cn, formatDate } from "@/lib/utils"
@@ -17,9 +18,7 @@ import { toast } from "@/components/ui/use-toast"
 import { Icons } from "@/components/icons"
 
 interface BillingFormProps extends React.HTMLAttributes<HTMLFormElement> {
-  subscriptionPlan: UserSubscriptionPlan & {
-    isCanceled: boolean
-  }
+  subscriptionPlan: UserSubscriptionPlan
 }
 
 export function BillingForm({
@@ -27,14 +26,17 @@ export function BillingForm({
   className,
   ...props
 }: BillingFormProps) {
+  const router = useRouter()
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
 
   async function onSubmit(event) {
     event.preventDefault()
-    setIsLoading(!isLoading)
+    setIsLoading(true)
 
-    // Get a Stripe session URL.
-    const response = await fetch("/api/users/stripe")
+    // Toggle the plan locally. No payment is processed.
+    const response = await fetch("/api/users/plan", { method: "POST" })
+
+    setIsLoading(false)
 
     if (!response?.ok) {
       return toast({
@@ -44,13 +46,7 @@ export function BillingForm({
       })
     }
 
-    // Redirect to the Stripe session.
-    // This could be a checkout page for initial upgrade.
-    // Or portal to manage existing subscription.
-    const session = await response.json()
-    if (session) {
-      window.location.href = session.url
-    }
+    router.refresh()
   }
 
   return (
@@ -73,13 +69,11 @@ export function BillingForm({
             {isLoading && (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
             )}
-            {subscriptionPlan.isPro ? "Manage Subscription" : "Upgrade to PRO"}
+            {subscriptionPlan.isPro ? "Switch to Free" : "Upgrade to PRO"}
           </button>
           {subscriptionPlan.isPro ? (
             <p className="rounded-full text-xs font-medium">
-              {subscriptionPlan.isCanceled
-                ? "Your plan will be canceled on "
-                : "Your plan renews on "}
+              Your plan renews on{" "}
               {formatDate(subscriptionPlan.stripeCurrentPeriodEnd)}.
             </p>
           ) : null}

@@ -2,7 +2,6 @@ import { redirect } from "next/navigation"
 
 import { authOptions } from "@/lib/auth"
 import { getCurrentUser } from "@/lib/session"
-import { stripe } from "@/lib/stripe"
 import { getUserSubscriptionPlan } from "@/lib/subscription"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import {
@@ -31,15 +30,6 @@ export default async function BillingPage() {
 
   const subscriptionPlan = await getUserSubscriptionPlan(user.id)
 
-  // If user has a pro plan, check cancel status on Stripe.
-  let isCanceled = false
-  if (subscriptionPlan.isPro && subscriptionPlan.stripeSubscriptionId) {
-    const stripePlan = await stripe.subscriptions.retrieve(
-      subscriptionPlan.stripeSubscriptionId
-    )
-    isCanceled = stripePlan.cancel_at_period_end
-  }
-
   return (
     <DashboardShell>
       <DashboardHeader
@@ -51,25 +41,11 @@ export default async function BillingPage() {
           <Icons.warning />
           <AlertTitle>This is a demo app.</AlertTitle>
           <AlertDescription>
-            Taxonomy app is a demo app using a Stripe test environment. You can
-            find a list of test card numbers on the{" "}
-            <a
-              href="https://stripe.com/docs/testing#cards"
-              target="_blank"
-              rel="noreferrer"
-              className="font-medium underline underline-offset-8"
-            >
-              Stripe docs
-            </a>
-            .
+            Plan changes are stored in the local database and no payment is
+            processed.
           </AlertDescription>
         </Alert>
-        <BillingForm
-          subscriptionPlan={{
-            ...subscriptionPlan,
-            isCanceled,
-          }}
-        />
+        <BillingForm subscriptionPlan={subscriptionPlan} />
       </div>
     </DashboardShell>
   )
