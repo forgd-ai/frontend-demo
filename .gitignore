@@ -38,3 +38,8 @@ next-env.d.ts
 
 .vscode
 .contentlayer
+# local sqlite database (created by postinstall prisma db push)
+prisma/dev.db
+
+# editor-generated
+/.vscode
