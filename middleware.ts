@@ -2,9 +2,11 @@ import { getToken } from "next-auth/jwt"
 import { withAuth } from "next-auth/middleware"
 import { NextResponse } from "next/server"
 
+import { authSecret } from "@/config/auth"
+
 export default withAuth(
   async function middleware(req) {
-    const token = await getToken({ req })
+    const token = await getToken({ req, secret: authSecret })
     const isAuth = !!token
     const isAuthPage =
       req.nextUrl.pathname.startsWith("/login") ||
@@ -30,6 +32,7 @@ export default withAuth(
     }
   },
   {
+    secret: authSecret,
     callbacks: {
       async authorized() {
         // This is a work-around for handling redirect on auth pages.

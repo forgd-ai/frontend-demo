@@ -52,7 +52,10 @@ export function Editor({ post }: EditorProps) {
         },
         placeholder: "Type here to write your post...",
         inlineToolbar: true,
-        data: body.content,
+        data:
+          typeof body.content === "string"
+            ? JSON.parse(body.content)
+            : body.content,
         tools: {
           header: Header,
           linkTool: LinkTool,
@@ -95,7 +98,7 @@ export function Editor({ post }: EditorProps) {
       },
       body: JSON.stringify({
         title: data.title,
-        content: blocks,
+        content: JSON.stringify(blocks),
       }),
     })
 
