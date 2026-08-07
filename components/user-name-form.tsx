@@ -99,7 +99,7 @@ export function UserNameForm({ user, className, ...props }: UserNameFormProps) {
               {...register("name")}
             />
             {errors?.name && (
-              <p className="px-1 text-xs text-red-600">{errors.name.message}</p>
+              <p className="px-1 text-xs text-destructive">{errors.name.message}</p>
             )}
           </div>
         </CardContent>
