@@ -41,5 +41,7 @@ next-env.d.ts
 # local sqlite database (created by postinstall prisma db push)
 prisma/dev.db
 
-# editor-generated
-/.vscode
+
+# local preflight plugin install (see tools/install-preflight.sh)
+.claude/plugins/
+.claude/settings.json

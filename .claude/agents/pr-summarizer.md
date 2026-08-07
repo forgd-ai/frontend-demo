@@ -1,1 +1,0 @@
-../../.preflight-plugin/agents/pr-summarizer.md

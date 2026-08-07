@@ -37,17 +37,24 @@ the session, not during a lab, so please try it early.
 5. **Toggle dark mode** using the control at the right edge of the page
    footer, and confirm the theme flips. Both labs depend on it.
 
-6. **Install the pre-push review hook** (from the repo root):
+6. **Install jq** (the preflight installer and its checks use it):
 
    ```sh
-   cp .preflight-plugin/git-hooks/pre-push .git/hooks/pre-push
-   chmod +x .git/hooks/pre-push
+   brew install jq        # macOS
+   sudo apt-get install jq  # Debian/Ubuntu
    ```
 
-7. **Verify the preflight skill.** Start Claude Code in the repo and run
+7. **Install the bundled preflight plugin** (from the repo root):
+
+   ```sh
+   bash tools/install-preflight.sh
+   ```
+
+8. **Verify preflight.** Restart Claude Code in the repo and run
    `/preflight`. It should review the current state of the repo and produce
-   a report. The first run may ask you to approve the project's agents and
-   skills; approve them.
+   a report. The first run may ask you to approve the project's plugin;
+   approve it. Optionally run `/preflight:install-preflight-hook` to add
+   the git pre-push hook.
 
 That is the whole gate: Node, a browser, and Claude Code. If `npm install`
 fails on a corporate network, note the error and bring it to the session;
