@@ -56,6 +56,6 @@ the session, not during a lab, so please try it early.
    approve it. Optionally run `/preflight:install-preflight-hook` to add
    the git pre-push hook.
 
-That is the whole gate: Node, a browser, and Claude Code. If `npm install`
-fails on a corporate network, note the error and bring it to the session;
-that is useful information, not a failure.
+That is the whole gate: Node, jq, a browser, and Claude Code. If
+`npm install` fails on a corporate network, note the error and bring it to
+the session; that is useful information, not a failure.

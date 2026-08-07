@@ -8,7 +8,12 @@ set -euo pipefail
 REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
 ARCHIVE="${REPO_ROOT}/tools/preflight.tar.gz"
 PLUGIN_DIR="${REPO_ROOT}/.claude/plugins/preflight"
-SETTINGS="${REPO_ROOT}/.claude/settings.json"
+# Divergence from the microservices-demo copy of this script: registration
+# goes to the machine-local settings file. This repo tracks
+# .claude/settings.json (the Lab 2 guard hook lives there), so writing the
+# per-machine plugin registration into it would either dirty the tracked
+# file or be clobbered on checkout. Claude Code merges both files.
+SETTINGS="${REPO_ROOT}/.claude/settings.local.json"
 MARKETPLACE_ROOT="${REPO_ROOT}/.claude/plugins"
 MARKETPLACE_MANIFEST="${MARKETPLACE_ROOT}/.claude-plugin/marketplace.json"
 

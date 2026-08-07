@@ -52,13 +52,13 @@ values for spacing or type.
   token provides, that is a design system conversation, not a hardcode.
 
 Known exceptions, and the only ones, matching the allowlist in
-`scripts/check-token-drift.sh`: `app/api/og/route.tsx` (image generation
-cannot read CSS variables), `components/tailwind-indicator.tsx` (dev-only
-breakpoint overlay), the MDX callout's `warning` variant (the token set has
-no warning color yet), and the code block surface in
-`components/mdx-components.tsx` (it pairs with the github-dark syntax theme,
-whose colors do not flip with the app theme). Do not add new exceptions
-silently.
+`scripts/check-token-drift.sh` (which exempts whole files, so keep these
+files small): `app/api/og/route.tsx` (image generation cannot read CSS
+variables), `components/tailwind-indicator.tsx` (dev-only breakpoint
+overlay), `components/callout.tsx` (its `warning` variant; the token set
+has no warning color yet), and `components/mdx-components.tsx` (the code
+block surface pairs with the github-dark syntax theme, whose colors do not
+flip with the app theme). Do not add new exceptions silently.
 
 Run `scripts/check-token-drift.sh` before calling any UI change done.
 

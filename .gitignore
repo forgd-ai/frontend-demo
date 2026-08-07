@@ -44,4 +44,4 @@ prisma/dev.db
 
 # local preflight plugin install (see tools/install-preflight.sh)
 .claude/plugins/
-.claude/settings.json
+.claude/settings.local.json
