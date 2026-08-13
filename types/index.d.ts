@@ -52,6 +52,14 @@ export type DashboardConfig = {
   sidebarNav: SidebarNavItem[]
 }
 
+export type DashboardNotification = {
+  id: string
+  title: string
+  body: string
+  createdAt: string
+  read: boolean
+}
+
 export type SubscriptionPlan = {
   name: string
   description: string

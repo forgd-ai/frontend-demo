@@ -1,6 +1,7 @@
 import {
   AlertTriangle,
   ArrowRight,
+  Bell,
   Check,
   ChevronLeft,
   ChevronRight,
@@ -30,6 +31,7 @@ export type Icon = LucideIcon
 
 export const Icons = {
   logo: Command,
+  bell: Bell,
   close: X,
   spinner: Loader2,
   chevronLeft: ChevronLeft,
