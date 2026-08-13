@@ -5,6 +5,11 @@
 
 set -euo pipefail
 
+FORCE=0
+if [[ "${1:-}" == "--force" ]]; then
+  FORCE=1
+fi
+
 REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
 ARCHIVE="${REPO_ROOT}/tools/preflight.tar.gz"
 PLUGIN_DIR="${REPO_ROOT}/.claude/plugins/preflight"
@@ -30,11 +35,17 @@ if ! command -v jq >/dev/null 2>&1; then
 fi
 
 if [[ -d "$PLUGIN_DIR" ]]; then
-  echo "preflight install: $PLUGIN_DIR already exists. Re-running will overwrite plugin files but keep your settings.json registration."
-  read -r -p "Continue? [y/N] " reply
-  if [[ ! "$reply" =~ ^[Yy]$ ]]; then
-    echo "Aborted."
-    exit 0
+  # Prompt only on an interactive terminal; under --force or a non-TTY
+  # wrapper (CI, Claude Code running the script) default to overwrite.
+  if [[ "$FORCE" -eq 0 && -t 0 ]]; then
+    echo "preflight install: $PLUGIN_DIR already exists. Re-running will overwrite plugin files but keep your settings.local.json registration."
+    read -r -p "Continue? [y/N] " reply
+    if [[ ! "$reply" =~ ^[Yy]$ ]]; then
+      echo "Aborted."
+      exit 0
+    fi
+  else
+    echo "preflight install: overwriting existing $PLUGIN_DIR"
   fi
   rm -rf "$PLUGIN_DIR"
 fi
@@ -94,18 +105,33 @@ jq --arg root "$MARKETPLACE_ROOT" '
 ' "$SETTINGS" > "$tmp"
 mv "$tmp" "$SETTINGS"
 
+# The settings file alone is not enough: Claude Code only loads plugins whose
+# marketplace has been synced into its internal cache, and only the claude
+# CLI performs that sync. Register through the CLI so the plugin actually
+# loads on the next session.
+if ! command -v claude >/dev/null 2>&1; then
+  echo "preflight install: the claude CLI is required to register the plugin with Claude Code." >&2
+  echo "Install Claude Code first (see WORKSHOP_SETUP.md step 1), then re-run this script." >&2
+  exit 1
+fi
+
+echo "Registering the plugin with Claude Code ..."
+claude plugin marketplace add "$MARKETPLACE_ROOT" --scope local
+claude plugin install preflight@preflight-local --scope local
+
 echo
 echo "Preflight installed."
 echo
 echo "What landed:"
 echo "  .claude/plugins/preflight/                       plugin tree (manifest, agents, hooks, scripts)"
 echo "  .claude/plugins/.claude-plugin/marketplace.json  project-local marketplace manifest"
-echo "  .claude/settings.json                            preflight-local marketplace + preflight@preflight-local enabled"
+echo "  .claude/settings.local.json                      preflight-local marketplace + preflight@preflight-local enabled"
 echo
 echo "Next steps:"
 echo "  1. Restart Claude Code so it picks up the new plugin."
 echo "  2. Run  /preflight:preflight  to gate your branch (or  /preflight  if there's no naming collision)."
 echo "  3. Run  /preflight:install-preflight-hook  to drop the native git pre-push hook."
 echo
-echo "To uninstall: delete .claude/plugins/ and remove the preflight-local and"
-echo "  preflight@preflight-local keys from .claude/settings.json."
+echo "To uninstall: run  claude plugin uninstall preflight@preflight-local --scope local,"
+echo "  then delete .claude/plugins/ and remove the preflight-local and"
+echo "  preflight@preflight-local keys from .claude/settings.local.json."
