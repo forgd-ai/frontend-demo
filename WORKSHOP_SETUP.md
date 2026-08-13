@@ -48,7 +48,11 @@ the session, not during a lab, so please try it early.
    sudo apt-get install jq  # Debian/Ubuntu
    ```
 
-7. **Install the bundled preflight plugin** (from the repo root):
+7. **Install the bundled preflight plugin.** Preflight is the code-review
+   plugin bundled in this repo (see `tools/README.md`): once registered,
+   typing `/preflight` in Claude Code reviews your branch's commits against
+   `main` and reports findings. It installs from the repo you already
+   cloned; nothing external, no accounts. From the repo root:
 
    ```sh
    bash tools/install-preflight.sh
@@ -58,10 +62,7 @@ the session, not during a lab, so please try it early.
    the `claude` CLI you installed in step 1, so expect a couple of
    `claude plugin` lines in its output.
 
-8. **Verify preflight.** Preflight is the code-review plugin bundled in
-   this repo: once registered, typing `/preflight` in Claude Code reviews
-   your branch's commits against `main` and reports findings. Restart
-   Claude Code in the repo, then run:
+8. **Verify preflight.** Restart Claude Code in the repo, then run:
 
    ```
    /preflight
