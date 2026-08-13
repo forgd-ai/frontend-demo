@@ -19,7 +19,7 @@ export function NotificationItem({
       <span
         className={cn(
           "mt-1.5 h-2 w-2 shrink-0 rounded-full",
-          notification.read ? "bg-transparent" : "bg-primary"
+          notification.read ? "bg-transparent" : "bg-[#0f172a]"
         )}
         aria-hidden="true"
       />
@@ -30,7 +30,7 @@ export function NotificationItem({
         <span className="line-clamp-2 text-sm text-muted-foreground">
           {notification.body}
         </span>
-        <span className="text-xs text-muted-foreground">
+        <span className="text-xs text-[#64748b]">
           {formatDate(notification.createdAt)}
         </span>
       </span>
