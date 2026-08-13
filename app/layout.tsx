@@ -48,10 +48,13 @@ export const metadata = {
     { media: "(prefers-color-scheme: light)", color: "white" },
     { media: "(prefers-color-scheme: dark)", color: "black" },
   ],
+  // No absolute og:url or social image here: Next resolves them into URL
+  // instances, and dev-mode metadata resolution structured-clones this
+  // object before any route-level generateMetadata runs, which throws
+  // DataCloneError on URL. Routes that need og images set their own.
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: siteConfig.url,
     title: siteConfig.name,
     description: siteConfig.description,
     siteName: siteConfig.name,
@@ -60,7 +63,6 @@ export const metadata = {
     card: "summary_large_image",
     title: siteConfig.name,
     description: siteConfig.description,
-    images: [`${siteConfig.url}/og.jpg`],
     creator: "@shadcn",
   },
   icons: {
