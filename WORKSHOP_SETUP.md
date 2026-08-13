@@ -25,6 +25,10 @@ the session, not during a lab, so please try it early.
    npm install
    ```
 
+   npm 11 may print a warning block telling you some packages' install
+   scripts were blocked and suggesting `npm approve-scripts`. That is
+   expected and harmless here; you do not need to approve anything.
+
 4. **Run the app** and confirm it loads:
 
    ```sh
@@ -50,11 +54,17 @@ the session, not during a lab, so please try it early.
    bash tools/install-preflight.sh
    ```
 
+   The script extracts the plugin and registers it with Claude Code using
+   the `claude` CLI you installed in step 1, so expect a couple of
+   `claude plugin` lines in its output.
+
 8. **Verify preflight.** Restart Claude Code in the repo and run
-   `/preflight`. It should review the current state of the repo and produce
-   a report. The first run may ask you to approve the project's plugin;
-   approve it. Optionally run `/preflight:install-preflight-hook` to add
-   the git pre-push hook.
+   `/preflight`. Preflight reviews the commits on your current branch
+   against `main`, so on a fresh clone there is nothing for it to look at
+   yet: a "nothing to review" result is the healthy outcome and confirms
+   the plugin loaded. The first run may ask you to approve the project's
+   plugin; approve it. Optionally run `/preflight:install-preflight-hook`
+   to add the git pre-push hook.
 
 That is the whole gate: Node, jq, a browser, and Claude Code. If
 `npm install` fails on a corporate network, note the error and bring it to
