@@ -66,6 +66,7 @@ export function NotificationCenter() {
           <p className="text-sm font-medium">Notifications</p>
           {unreadCount > 0 && (
             <button
+              type="button"
               onClick={markAllRead}
               className="text-xs font-medium text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             >

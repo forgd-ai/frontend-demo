@@ -12,6 +12,7 @@ export function NotificationItem({
 }: NotificationItemProps) {
   return (
     <button
+      type="button"
       onClick={() => onMarkRead(notification.id)}
       className="flex items-start gap-3 px-4 py-3 text-left transition-colors hover:bg-muted/50 focus-visible:bg-muted/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
     >
