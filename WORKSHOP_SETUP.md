@@ -58,13 +58,23 @@ the session, not during a lab, so please try it early.
    the `claude` CLI you installed in step 1, so expect a couple of
    `claude plugin` lines in its output.
 
-8. **Verify preflight.** Restart Claude Code in the repo and run
-   `/preflight`. Preflight reviews the commits on your current branch
-   against `main`, so on a fresh clone there is nothing for it to look at
-   yet: a "nothing to review" result is the healthy outcome and confirms
-   the plugin loaded. The first run may ask you to approve the project's
-   plugin; approve it. Optionally run `/preflight:install-preflight-hook`
-   to add the git pre-push hook.
+8. **Verify preflight.** Preflight is the code-review plugin bundled in
+   this repo: once registered, typing `/preflight` in Claude Code reviews
+   your branch's commits against `main` and reports findings. Restart
+   Claude Code in the repo, then run:
+
+   ```
+   /preflight
+   ```
+
+   On a fresh clone there is nothing for it to look at yet: a "nothing to
+   review" result is the healthy outcome and confirms the plugin loaded.
+   The first run may ask you to approve the project's plugin; approve it.
+   Optionally add the git pre-push hook:
+
+   ```
+   /preflight:install-preflight-hook
+   ```
 
 That is the whole gate: Node, jq, a browser, and Claude Code. If
 `npm install` fails on a corporate network, note the error and bring it to
