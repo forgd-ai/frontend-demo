@@ -97,3 +97,18 @@ Every interactive element must be:
    footer. If it only looks right in one theme, a token is being bypassed.
 2. Run `scripts/check-token-drift.sh`. It must report `NO DRIFT DETECTED`.
 3. Check keyboard navigation reaches and operates the change.
+
+## Floating surfaces
+
+Conventions derived while building the notification center; they apply to
+any popover, dropdown, or menu-like surface.
+
+- Popover content uses `p-0`; internal sections manage their own padding
+  (`px-4 py-3`) and are divided by `Separator`, with a header row first.
+- Lists inside a floating surface scroll in a fixed-height `ScrollArea`
+  (`h-80`); a popover never grows unbounded with its content.
+- Use `align="end"` when the trigger sits near the viewport edge.
+- Icon-button triggers are ghost buttons (`h-9 w-9 px-0`) with an `sr-only`
+  label that includes state, e.g. "Open notifications, 3 unread".
+- Status dots are `h-2 w-2 rounded-full bg-primary`; when inactive they keep
+  their box (`bg-transparent`) so the layout does not shift.
