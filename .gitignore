@@ -45,3 +45,6 @@ prisma/dev.db
 # local preflight plugin install (see tools/install-preflight.sh)
 .claude/plugins/
 .claude/settings.local.json
+
+# preflight run artifacts (reports, per-run state)
+.preflight/
