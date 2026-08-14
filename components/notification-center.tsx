@@ -54,7 +54,7 @@ export function NotificationCenter() {
       >
         <Icons.bell className="h-5 w-5" aria-hidden="true" />
         {unreadCount > 0 && (
-          <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-[#0f172a]" />
+          <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-primary" />
         )}
         <span className="sr-only">
           Open notifications
@@ -62,7 +62,7 @@ export function NotificationCenter() {
         </span>
       </PopoverTrigger>
       <PopoverContent ref={contentRef} align="end" className="w-80 p-0 sm:w-96">
-        <div className="flex items-center justify-between px-4 py-[14px]">
+        <div className="flex items-center justify-between px-4 py-3">
           <p className="text-sm font-medium">Notifications</p>
           {unreadCount > 0 && (
             <button
