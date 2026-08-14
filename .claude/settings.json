@@ -4,5 +4,18 @@
       "Write(.preflight/**)",
       "Edit(.preflight/**)"
     ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|MultiEdit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"$CLAUDE_PROJECT_DIR\" && ./scripts/check-token-drift.sh >&2 || exit 2"
+          }
+        ]
+      }
+    ]
   }
 }
