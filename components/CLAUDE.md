@@ -100,8 +100,9 @@ Every interactive element must be:
 
 ## Floating surfaces
 
-Conventions derived while building the notification center; they apply to
-any popover, dropdown, or menu-like surface.
+Conventions set down ahead of the notification center build, so the
+implementation conforms by default; they apply to any popover, dropdown,
+or menu-like surface.
 
 - Popover content uses `p-0`; internal sections manage their own padding
   (`px-4 py-3`) and are divided by `Separator`, with a header row first.
