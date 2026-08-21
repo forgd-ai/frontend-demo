@@ -42,9 +42,6 @@ next-env.d.ts
 prisma/dev.db
 
 
-# local preflight plugin install (see tools/install-preflight.sh)
+# Claude Code machine-local state (plugin cache, per-user settings)
 .claude/plugins/
 .claude/settings.local.json
-
-# preflight run artifacts (reports, per-run state)
-.preflight/
