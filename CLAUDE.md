@@ -43,10 +43,5 @@ No `.env` file is required. Sign in with any email address. Node 20+.
 
 ## Workshop notes
 
-- The preflight review plugin is bundled: run `bash tools/install-preflight.sh`
-  once (see WORKSHOP_SETUP.md), restart Claude Code, and `/preflight` reviews
-  the commits on your branch against `main`. It diffs committed history, so
-  work on a feature branch and commit before running it; work committed
-  straight to `main` gives it nothing to review.
 - Checkpoint branches (`checkpoint/...`) exist so lab participants can catch
   up; the lab documents explain when to use them.
