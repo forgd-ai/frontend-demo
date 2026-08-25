@@ -1,7 +1,11 @@
 # frontend-demo
 
 A staged Next.js application used for hands-on Claude Code workshop labs on
-design systems and design tokens.
+design systems and design tokens. Some branches intentionally carry defects
+the labs investigate; the app runs locally with no accounts and no .env
+(see WORKSHOP_SETUP.md). Dependencies are intentionally pinned to the lab
+baseline, so `npm audit` reports known advisories by design; the app is
+for local use only.
 
 ## Overview
 
