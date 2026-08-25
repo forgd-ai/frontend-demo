@@ -16,7 +16,12 @@ the session, not during a lab, so please try it early.
    node --version
    ```
 
-3. **Clone this repository** and install. There is no `.env` to configure;
+3. **Clone this repository** and install. Clone to a folder outside
+   Documents, Desktop, or any cloud-synced directory (iCloud, OneDrive,
+   Dropbox); your home folder or a `~/code` directory is ideal. A sync
+   daemon and the dev server's file watcher can lock each other up, and
+   the failure looks like a server that starts but never finishes
+   loading. There is no `.env` to configure;
    the install also creates the local database:
 
    ```sh
